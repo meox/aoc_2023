@@ -33,10 +33,12 @@ defmodule Scratchcards do
       |> input()
       |> Map.new(fn {id, wins, ns} -> {id, {wins, ns}} end)
 
-    max_cards = m |> Map.keys() |> Enum.max()
-    init_state = m |> Map.keys() |> Map.new(fn id -> {id, 1} end)
+    keys = Map.keys(m)
+    max_cards = Enum.max(keys)
+    init_state = Map.new(keys, fn id -> {id, 1} end)
 
-    play_part2(m, 1, max_cards, init_state)
+    m
+    |> play_part2(1, max_cards, init_state)
     |> Map.values()
     |> Enum.sum()
   end
